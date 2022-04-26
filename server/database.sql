@@ -2,8 +2,8 @@ CREATE DATABASE campusclubs;
 
 CREATE TABLE user_table(
     user_id SERIAL PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
-    email_id VARCHAR(100),
+    username VARCHAR(50) UNIQUE,
+    email_id VARCHAR(100) UNIQUE,
     user_password VARCHAR(50),
     phone_no VARCHAR(10),
     display_name VARCHAR(100),
