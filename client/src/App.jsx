@@ -11,12 +11,12 @@ function App() {
   return (
     <div>
       <Router>
-        <Switch>
+        <Routes>
           <Route exact path = "/chHome" commponent = {chLanding}/>
           <Route exact path = "/chNew" commponent = {chNewPost}/>
           <Route exact path = "/adminHome" commponent = {adminLanding}/>
           <Route exact path = "/adminAdd" commponent = {adminAddClub}/>
-        </Switch>
+        </Routes>
       </Router>
     </div>
 );
