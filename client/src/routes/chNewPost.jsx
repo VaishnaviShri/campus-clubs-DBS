@@ -6,4 +6,4 @@ const chNewPost = () => {
   )
 }
 
-export default chNewPost
+export default chNewPost;

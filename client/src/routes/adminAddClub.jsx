@@ -6,4 +6,4 @@ const adminAddClub = () => {
   )
 }
 
-export default adminAddClub
+export default adminAddClub;

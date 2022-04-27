@@ -6,4 +6,4 @@ const adminLanding = () => {
   )
 }
 
-export default adminLanding
+export default adminLanding;
