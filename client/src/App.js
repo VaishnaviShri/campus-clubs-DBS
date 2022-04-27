@@ -10,6 +10,9 @@ function App() {
       <div className="container">
       <Register/>
       </div>
+      <div className="container">
+      <Login/>
+      </div>
     </Fragment>
   );
 }

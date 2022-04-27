@@ -12,10 +12,10 @@ function App() {
     <div className="container">
       <Router>
         <Routes>
-          <Route exact path = "/chHome" commponent = {chLanding}/>
-          <Route exact path = "/chNew" commponent = {chNewPost}/>
-          <Route exact path = "/adminHome" commponent = {adminLanding}/>
-          <Route exact path = "/adminAdd" commponent = {adminAddClub}/>
+          <Route exact path = "/chLanding" commponent = {chLanding}/>
+          <Route exact path = "/chNewPost" commponent = {chNewPost}/>
+          <Route exact path = "/adminLanding" commponent = {adminLanding}/>
+          <Route exact path = "/adminAddClub" commponent = {adminAddClub}/>
         </Routes>
       </Router>
     </div>
