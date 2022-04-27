@@ -97,7 +97,7 @@ app.delete("/campusclubs/club/unfollow/:user_id/:club_id", async (req, res) =>{
 
         const user = await pool.query("DELETE FROM user_table WHERE user_id = $1 AND club_id = $2", 
         [user_id, club_id]);
-        res.json("club unfollowed!");
+        res.json(" club unfollowed!");
     } catch (error) {
         console.error(error);
     }
@@ -105,6 +105,20 @@ app.delete("/campusclubs/club/unfollow/:user_id/:club_id", async (req, res) =>{
 
 
 // add tag to a post
+app.post("/campusclubs/tag/add", async(req,res) =>{
+    console.log(req.body);
+   
+    try {
+        const addNewTag = await pool.query(
+        "INSERT INTO get_tag (post_id, t_id) VALUES($1, $2) RETURNING *",
+        [req.body.post_id, req.body.t_id]
+        );
+        res.json(addNewTag);
+        //console.log(req.body);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
 
 //get all users
 app.get("/campusclubs/user/getall", async(req,res)=>{
