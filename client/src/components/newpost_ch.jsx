@@ -1,6 +1,6 @@
 import React from 'react'
 
-const newpost_ch = () => {
+const Newpost_ch = () => {
   return (
     <div>
         <button className="btn btn-primary">New Post</button>
@@ -8,4 +8,4 @@ const newpost_ch = () => {
   )
 }
 
-export default newpost_ch;
+export default Newpost_ch;

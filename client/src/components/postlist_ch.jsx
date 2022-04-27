@@ -1,6 +1,6 @@
 import React from 'react'
 
-const postlist_ch = () => {
+const Postlist_ch = () => {
   return (
     <div className="list-group">
         <table className="table table-hover table-dark">
@@ -13,7 +13,7 @@ const postlist_ch = () => {
                 </tr>
             </thead>
             <tbody>
-                {/* (sample row just for checking ) */}
+                {/* (sample row just for checking )  */}
                 <tr>
                     <td>1</td>
                     <td>Nkjsdnfkd(Post title)</td>
@@ -26,4 +26,4 @@ const postlist_ch = () => {
   )
 }
 
-export default postlist_ch;
+export default Postlist_ch;

@@ -1,7 +1,8 @@
 import React from 'react'
 import Header_ch from '../components/Header_ch';
-import newpost_ch from '../components/newpost_ch';
-import postlist_ch from '../components/postlist_ch';
+import Newpost_ch from '../components/newpost_ch';
+import Postlist_ch from '../components/postlist_ch';
+
 
 const chLanding = () => {
   return (
@@ -10,10 +11,10 @@ const chLanding = () => {
       <Header_ch />
       </div>
       <div>
-        <newpost_ch/>
+        <Newpost_ch/>
       </div>
       <div>
-        <postlist_ch/>
+        <Postlist_ch/>
       </div>
     </div>
   )

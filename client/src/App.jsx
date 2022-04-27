@@ -9,7 +9,7 @@ import adminAddClub from './routes/adminAddClub';
 
 function App() {
   return (
-    <div>
+    <div className="container">
       <Router>
         <Routes>
           <Route exact path = "/chHome" commponent = {chLanding}/>
