@@ -15,8 +15,8 @@ app.post("/campusclubs/user/add", async(req,res) =>{
 
     try {
         const newUser = await pool.query(
-        "INSERT INTO user_table (username, email_id, user_password, phone_no, display_name, rid ) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
-        [req.body.username, req.body.email_id, req.body.user_password, req.body.phone_no, req.body.display_name, req.body.rid]
+        "INSERT INTO user_table (username, email_id, user_password, phone_no, display_name, r_id ) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
+        [req.body.username, req.body.email_id, req.body.user_password, req.body.phone_no, req.body.display_name, req.body.r_id]
         );
         res.json(newUser);
         //console.log(req.body);
@@ -33,6 +33,42 @@ app.get("/campusclubs/user/getall", async(req,res)=>{
         res.json(allUsers.rows);
     } catch (error) {
         console.error(error.message);
+    }
+});
+//get password for a username
+app.get("/campusclubs/user/getpassword/:username", async(req,res)=>{
+    try {
+        const{username} = req.params;
+        const allUsers = await pool.query(
+            "SELECT user_password FROM user_table WHERE username = $1",
+            [username]
+        );
+        res.json(allUsers.rows[0]);
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
+app.get("/campusclubs/user/getuserbyid/:id", async(req,res)=>{
+    try {
+        const{id} = req.params;
+        const allUsers = await pool.query(
+            "SELECT * FROM user_table WHERE user_id = $1",
+            [id]
+        );
+        res.json(allUsers.rows[0]);
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
+app.delete("/campusclubs/user/delete/:id", async (req, res) =>{
+    try {
+        const{id} = req.params;
+        const user = await pool.query("DELETE FROM user_table WHERE user_id = $1", [id]);
+        res.json("user DELETED!");
+    } catch (error) {
+        console.error(error);
     }
 });
 
@@ -56,6 +92,7 @@ app.post("/campusclubs/club/add", async(req,res) =>{
         console.error(err.message);
     }
 });
+//add role
 
 //get all clubs
 
@@ -69,6 +106,7 @@ app.get("/campusclubs/club/getall", async(req,res)=>{
         console.error(error.message);
     }
 });
+
 
 app.listen(5000, () => {
     console.log("server has started on port 5000! yay!");
