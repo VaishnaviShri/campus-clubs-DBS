@@ -56,6 +56,20 @@ app.post("/campusclubs/post/add", async(req,res) =>{
     }
 });
 
+//get clubs of a club head
+app.get("/campusclubs/club/getclubsofclubhead/:user_id", async(req,res)=>{
+    try {
+        const{user_id} = req.params;
+        const myClubs = await pool.query(
+            "SELECT c.* from club c, is_clubhead_of ch, user_table u WHERE u.user_id = $1 AND u.user_id = ch.user_id AND ch.club_id = c.club_id",
+            [user_id]
+         );
+        res.json(myClubs);
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
 
 //add a clubhead
 app.post("/campusclubs/clubhead/add", async(req,res) =>{
@@ -73,8 +87,21 @@ app.post("/campusclubs/clubhead/add", async(req,res) =>{
     }
 });
 
+//is club followed
+app.get("/campusclubs/club/isfollowed/:user_id/:club_id", async(req,res)=>{
+    try {
+        const isFollowed = await pool.query(
+            "SELECT COUNT(*) FROM follows WHERE user_id = $1 AND club_id = $2 ",
+            [req.params.user_id,  req.params.club_id]
+         );
+        res.json(isFollowed.rows[0]);
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
 //add student following a club
-app.post("/campusclubs/club/follow", async(req,res) =>{
+app.post("/campusclubs/club/follow/:userId/:clubid", async(req,res) =>{
     console.log(req.body);
    
     try {
@@ -90,13 +117,10 @@ app.post("/campusclubs/club/follow", async(req,res) =>{
 });
 
 //add student unfollowing a club
-app.delete("/campusclubs/club/unfollow/:user_id/:club_id", async (req, res) =>{
+app.delete("/campusclubs/club/unfollow/:userId/:clubid", async (req, res) =>{
     try {
-        const{user_id} = req.params.user_id;
-        const{club_id} = req.params.club_id;
-
         const user = await pool.query("DELETE FROM user_table WHERE user_id = $1 AND club_id = $2", 
-        [user_id, club_id]);
+        [req.params.userId, req.params.clubId]);
         res.json(" club unfollowed!");
     } catch (error) {
         console.error(error);
@@ -235,7 +259,7 @@ app.get("/campusclubs/post/getclubposts/:club_id", async(req,res)=>{
 });
 
 //get all posts for main feed - all posts from all clubs that user follows
-app.get("/campusclubs/post/getclubposts/:user_id", async(req,res)=>{
+app.get("/campusclubs/post/getuserposts/:user_id", async(req,res)=>{
     try {
         const{user_id} = req.params;
         const myPosts = await pool.query(
@@ -249,7 +273,7 @@ app.get("/campusclubs/post/getclubposts/:user_id", async(req,res)=>{
 });
 
 //get all clubs that user follows
-app.get("/campusclubs/club/getclubposts/:user_id", async(req,res)=>{
+app.get("/campusclubs/club/getmyclubs/:user_id", async(req,res)=>{
     try {
         const{user_id} = req.params;
         const myClubs = await pool.query(
