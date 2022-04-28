@@ -181,6 +181,19 @@ app.get("/campusclubs/user/getuserbyid/:id", async(req,res)=>{
         console.error(error.message);
     }
 });
+//get user by username
+app.get("/campusclubs/user/getuserbyusername/:username", async(req,res)=>{
+    try {
+        const{username} = req.params;
+        const allUsers = await pool.query(
+            "SELECT * FROM user_table WHERE username = $1",
+            [username]
+        );
+        res.json(allUsers.rows[0]);
+    } catch (error) {
+        console.error(error.message);
+    }
+});
 
 //get userid from username
 app.get("/campusclubs/user/getuserid/:username", async(req,res)=>{
