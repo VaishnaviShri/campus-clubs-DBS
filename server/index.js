@@ -144,6 +144,15 @@ app.get("/campusclubs/user/getpassword/:username", async(req,res)=>{
         console.error(error.message);
     }
 });
+app.get("/hello", async(req,res)=>{
+    try {
+        const obj = JSON.parse('{"var": "hello}');
+        res.json(obj);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+)
 
 //get role id for a username
 app.get("/campusclubs/user/getroleid/:username", async(req,res)=>{
@@ -166,6 +175,20 @@ app.get("/campusclubs/user/getuserbyid/:id", async(req,res)=>{
         const allUsers = await pool.query(
             "SELECT * FROM user_table WHERE user_id = $1",
             [id]
+        );
+        res.json(allUsers.rows[0]);
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
+//get userid from username
+app.get("/campusclubs/user/getuserid/:username", async(req,res)=>{
+    try {
+        const{username} = req.params;
+        const allUsers = await pool.query(
+            "SELECT user_id FROM user_table WHERE username = $1",
+            [username]
         );
         res.json(allUsers.rows[0]);
     } catch (error) {
