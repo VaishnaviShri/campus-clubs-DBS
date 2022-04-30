@@ -101,10 +101,11 @@ app.get("/campusclubs/club/isfollowed/:user_id/:club_id", async(req,res)=>{
 });
 
 //add student following a club
-app.post("/campusclubs/club/follow/:userId/:clubid", async(req,res) =>{
+app.post("/campusclubs/club/follow", async(req,res) =>{
     console.log(req.body);
    
     try {
+        
         const newFollow = await pool.query(
         "INSERT INTO follows (user_id, club_id) VALUES($1, $2) RETURNING *",
         [req.body.user_id, req.body.club_id]
@@ -298,8 +299,31 @@ app.delete("/campusclubs/user/delete/:id", async (req, res) =>{
 });
 
 //delete club
+app.delete("/campusclubs/club/delete/:id", async (req, res) =>{
+    try {
+        const{id} = req.params;
+       
+        const clubhead = await pool.query("DELETE FROM is_clubhead_of WHERE club_id = $1", [id]);
+        const clubfollow = await pool.query("DELETE FROM follows WHERE club_id = $1", [id]);
+        const club = await pool.query("DELETE FROM club WHERE club_id = $1", [id]);
+        res.json("club DELETED!");
+    } catch (error) {
+        console.error(error);
+    }
+});
 
 //delete post
+app.delete("/campusclubs/post/delete/:id", async (req, res) =>{
+    try {
+        const{id} = req.params;
+        const postTag = await pool.query("DELETE FROM get_tag WHERE post_id = $1", [id]);
+        
+        const post = await pool.query("DELETE FROM post WHERE post_id = $1", [id]);
+        res.json("post DELETED!");
+    } catch (error) {
+        console.error(error);
+    }
+});
 
 //update post
 

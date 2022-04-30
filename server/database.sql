@@ -43,7 +43,7 @@ create table is_clubhead_of(
 
 
 create table post(
-    post_id varchar(10) PRIMARY KEY, 
+    post_id varchar(10) SERIAL PRIMARY KEY, 
     title varchar(500), 
     body varchar(1000), 
     last_updated varchar(20), 
